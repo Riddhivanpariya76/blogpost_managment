@@ -3,9 +3,11 @@ import Navbar from "../Components/Navbar";
 import { FaPlus } from "react-icons/fa";
 import { MdDelete, MdEdit } from "react-icons/md";
 import "./Dashboard.css";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
   const [posts, setPosts] = useState([]);
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     try {
@@ -32,7 +34,8 @@ function Dashboard() {
           <div className="welcome-text">
             <h1>Welcome to your Dashboard</h1>
             <p>
-              Manage your posts, track engagement, and connect with your audience.
+              Manage your posts, track engagement, and connect with your
+              audience.
             </p>
           </div>
         </div>
@@ -67,11 +70,10 @@ function Dashboard() {
               <div className="post-card" key={post.id}>
                 <div className="post-image-container">
                   <img
-  src={post.image}
-  alt={post.title}
-  className="post-card-image"
-/>
-
+                    src={post.image}
+                    alt={post.title}
+                    className="post-card-image"
+                  />
 
                   <div className="post-actions">
                     <button className="action-btn edit-btn" title="Edit Post">

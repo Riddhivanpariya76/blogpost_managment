@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Navigate, NavLink } from "react-router-dom";
 import { FaBlog,FaHome,FaPlusSquare,FaSignOutAlt } from "react-icons/fa";
 import "./Navbar.css";
 
@@ -17,7 +17,7 @@ const Navbar =()=>{
                     <FaHome className="nav-icon"></FaHome>
                     </NavLink>
 
-                    <NavLink to="/create-post" className="nav-item">
+                    <NavLink to="/create-post" className="nav-item" onClick={() => Navigate("/create-post")}>
                     <FaPlusSquare className="nav-icon"/>Create Post
                     </NavLink>
                  </div>

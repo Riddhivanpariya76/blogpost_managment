@@ -5,6 +5,8 @@ import Dashboard from "./pages/Dashboard";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Createpost from "./pages/Createpost";
+import AuthGuard from "./auth/Authguard";
 
 function App() {
   return (
@@ -14,6 +16,10 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/create-post" element={<Createpost/>}/>
+        <Route path="/edit-post/:id" element={<AuthGuard>
+          <Createpost/>
+        </AuthGuard>}/>
       </Routes>
 
       <ToastContainer
