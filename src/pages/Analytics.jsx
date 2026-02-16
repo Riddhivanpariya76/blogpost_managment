@@ -18,10 +18,12 @@ const Analytics = () => {
 
     const headers = [
         {label: 'ID', key:'id'}
-        {label: 'ID', key:'id'}
-        {label: 'ID', key:'id'}
-        {label: 'ID', key:'id'}
+        {label: 'Title', key:'title'}
+        {label: 'Author', key:'author'}
+        {label: 'Date', key:'createdAt'}
     ];
+
+    const header2 = ['ID', 'Author', 'Date', 'Title']
 
     const COLORS = ['#0088FE', '#00CA9F', '#FFBB28', '#FF8042'];
 
@@ -92,11 +94,14 @@ const Analytics = () => {
             <div className="table-wrapper">
                 <table className="analytics-table">
                     <thead>
-                        {headers.map((headers.index)) => (
-                            <tr>
-                            <th>(headers)</th>
+                        <tr>
+                            {headers.map((headers.index) => (
+                            
+                            <th>(headers.label)</th>
+                        
+                        ))}
                         </tr>
-                        )}
+                        
                         
                     </thead>
                     <tbody>
