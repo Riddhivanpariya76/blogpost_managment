@@ -20,6 +20,10 @@ const Navbar =()=>{
                     <NavLink to="/create-post" className="nav-item" onClick={() => Navigate("/create-post")}>
                     <FaPlusSquare className="nav-icon"/>Create Post
                     </NavLink>
+
+                    <NavLink to="/analytics" className="nav-item" onClick={() => Navigate("/analytics")}>
+                    <FaPlusSquare className="nav-icon"/>Analytics
+                    </NavLink>
                  </div>
 
                  <div className="navbar-actions">

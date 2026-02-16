@@ -9,33 +9,47 @@ function Dashboard() {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
 
+  // Fetch posts
   const fetchData = async () => {
     try {
       const response = await fetch("http://localhost:3000/posts");
       const data = await response.json();
       setPosts(data);
     } catch (error) {
-      console.log(error);
+      console.log("Fetch error:", error);
     }
   };
-  useEffect(() => {
-    console.log("called after API", posts);
-  }, [posts]);
+
   useEffect(() => {
     fetchData();
   }, []);
 
+  // Delete post
+  const deletePost = async (id) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this post?");
+    if (!confirmDelete) return;
+
+    try {
+      await fetch(`http://localhost:3000/posts/${id}`, {
+        method: "DELETE",
+      });
+
+      // Update UI after delete
+      setPosts(posts.filter((post) => post.id !== id));
+    } catch (error) {
+      console.log("Delete error:", error);
+    }
+  };
+
   return (
     <div className="dashboard-page">
       <Navbar />
-
       <main className="dashbord-main">
         <div className="dashboard-welcome">
           <div className="welcome-text">
             <h1>Welcome to your Dashboard</h1>
             <p>
-              Manage your posts, track engagement, and connect with your
-              audience.
+              Manage your posts, track engagement, and connect with your audience.
             </p>
           </div>
         </div>
@@ -60,7 +74,10 @@ function Dashboard() {
         <section className="posts-section">
           <div className="section-header">
             <h2 className="section-title">Recent Feed</h2>
-            <button className="create-shortcut-btn">
+            <button
+              className="create-shortcut-btn"
+              onClick={() => navigate("/create-post")}
+            >
               <FaPlus /> New Post
             </button>
           </div>
@@ -70,18 +87,24 @@ function Dashboard() {
               <div className="post-card" key={post.id}>
                 <div className="post-image-container">
                   <img
-                    src={post.image}
+                    src={post.imageUrl}
                     alt={post.title}
                     className="post-card-image"
                   />
 
                   <div className="post-actions">
-                    <button className="action-btn edit-btn" title="Edit Post">
+                    <button
+                      className="action-btn edit-btn"
+                      title="Edit Post"
+                      onClick={() => navigate(`/edit-post/${post.id}`)}
+                    >
                       <MdEdit size={22} color="white" />
                     </button>
+
                     <button
                       className="action-btn delete-btn"
                       title="Delete Post"
+                      onClick={() => deletePost(post.id)}
                     >
                       <MdDelete size={22} color="white" />
                     </button>
@@ -90,7 +113,9 @@ function Dashboard() {
 
                 <div className="post-card-content">
                   <div className="post-meta">
-                    <span className="post-author">By {post.author}</span>
+                    <span className="post-author">
+                      By {post.author}
+                    </span>
                     <span className="post-date">
                       {new Date(post.createdAt).toDateString()}
                     </span>
@@ -98,9 +123,16 @@ function Dashboard() {
 
                   <h3 className="post-card-title">{post.title}</h3>
 
-                  <p className="post-card-description">{post.description}</p>
+                  <p className="post-card-description">
+                    {post.description}
+                  </p>
 
-                  <button className="read-more-btn">Read More</button>
+                  <button
+                    className="read-more-btn"
+                    onClick={() => navigate(`/post-detail/${post.id}`)}
+                  >
+                    Read More
+                  </button>
                 </div>
               </div>
             ))}
