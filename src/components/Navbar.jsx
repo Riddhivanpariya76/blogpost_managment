@@ -1,5 +1,5 @@
 import { Navigate, NavLink } from "react-router-dom";
-import { FaBlog,FaHome,FaPlusSquare,FaSignOutAlt } from "react-icons/fa";
+import { FaBlog,FaHome,FaPlusSquare,FaSignOutAlt, FaChartBar } from "react-icons/fa";
 import "./Navbar.css";
 
 const Navbar =()=>{
@@ -22,12 +22,12 @@ const Navbar =()=>{
                     </NavLink>
 
                     <NavLink to="/analytics" className="nav-item" onClick={() => Navigate("/analytics")}>
-                    <FaPlusSquare className="nav-icon"/>Analytics
+                    <FaChartBar className="nav-icon"/>Analytics
                     </NavLink>
                  </div>
 
                  <div className="navbar-actions">
-                    <span className="user-name">Hi,user</span>
+                    <span className="user-name">Hi, user</span>
 
                     <button className="logout-btn">
                         <FaSignOutAlt/>Logout

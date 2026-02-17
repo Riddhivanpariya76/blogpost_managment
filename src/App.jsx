@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Createpost from "./pages/Createpost";
 import AuthGuard from "./auth/Authguard";
 import Analytics from "./pages/Analytics";
+import PostDetails from "./pages/PostDetails";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Createpost/>
         </AuthGuard>}/>
         <Route path="/analytics" element={<Analytics/>}/>
+        <Route path="/post-details/:id" element={<PostDetails/>}/>
       </Routes>
 
       <ToastContainer

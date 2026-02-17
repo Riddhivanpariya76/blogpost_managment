@@ -129,7 +129,7 @@ function Dashboard() {
 
                   <button
                     className="read-more-btn"
-                    onClick={() => navigate(`/post-detail/${post.id}`)}
+                    onClick={() => navigate(`/post-details/${post.id}`)}
                   >
                     Read More
                   </button>
