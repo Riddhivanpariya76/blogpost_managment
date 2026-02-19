@@ -1,34 +1,27 @@
-import React,{ createContext, useState, useEffect, useContext, Children} from 'react';
+import { createContext, useContext, useEffect, useState } from "react";
 
 const ThemeContext = createContext();
 
-export const useTheme = useContext(ThemeContext);
+export const useTheme =() =>useContext(ThemeContext);
 
-export const ThemeProvider = ({ children }) => {
-    //  check local storage or system preference on install load
-    const [theme, setTheme] = useState(() => {
-        const savedTheme = localStorage.getItem('theme');
+export const ThemeProvider = ({children }) => {
+    // check local storage or system preference on initial load
+    const[theme,setTheme]=useState(()=>{
+        const savedTheme=localStorage.getItem('theme');
         return savedTheme || 'light';
     });
 
-    useEffect(() => {
-        // update the data-theme attribute on the document element
-        document.documentElement.setAttribute('data-theme', theme);
-        // save to local storage
+    useEffect(()=>{
+        document.documentElement.setAttribute('data-theme',theme);
         localStorage.setItem('theme',theme);
-    }, [theme]);
+    },[theme]);
 
     const toggleTheme = () => {
-        setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+        setTheme((prevTheme) => (prevTheme === 'light' ?'dark':'light'));
     };
-
+    return(
+        <ThemeContext.Provider value={{theme,toggleTheme}}>
+            {children}
+        </ThemeContext.Provider>
+    );
 };
-
-return (
-    <ThemeContext.Provider value={{theme, toggleTheme}}>
-        {Children}
-    </ThemeContext.Provider>
-)
-
-
-export default ThemeContext

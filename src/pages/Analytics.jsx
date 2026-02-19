@@ -22,7 +22,7 @@ const Analytics = () => {
   const navigate = useNavigate();
   const postsPerPage = 5;
 
-  /* ================== AUTHOR STATS ================== */
+  /*  AUTHOR STATS  */
   const authorStats = posts.reduce((acc, post) => {
     const author = post.auther || "Unknown";
     acc[author] = (acc[author] || 0) + 1;
@@ -34,7 +34,7 @@ const Analytics = () => {
     posts: authorStats[author],
   }));
 
-  /* ================== PAGINATION ================== */
+  /* PAGINATION */
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
@@ -44,7 +44,7 @@ const Analytics = () => {
 
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
-  /* ================== FETCH DATA ================== */
+  /* FETCH DATA */
   useEffect(() => {
     fetch("http://localhost:3000/posts")
       .then((res) => res.json())
@@ -52,9 +52,9 @@ const Analytics = () => {
       .catch((err) => console.error(err));
   }, []);
 
-  /* ================== ACTIONS ================== */
+  /* ACTIONS */
   const handleEdit = (id) => {
-    navigate(`/create-post/${id}`);
+    navigate(`/Edit-post/${id}`);
   };
 
   const handleDelete = async (id) => {
@@ -77,7 +77,7 @@ const Analytics = () => {
           <p>Insights into your blog's performance and activity</p>
         </header>
 
-        {/* ================== CHARTS ================== */}
+        {/* CHARTS */}
         <div className="charts-container">
           {/* BAR CHART */}
           <div className="chart-card">
@@ -123,7 +123,7 @@ const Analytics = () => {
           </div>
         </div>
 
-        {/* ================== TABLE ================== */}
+        {/* TABLE */}
         <div className="posts-table-section">
           <h3>All Posts</h3>
 
@@ -180,7 +180,7 @@ const Analytics = () => {
             </table>
           </div>
 
-          {/* ================== PAGINATION ================== */}
+          {/* PAGINATION  */}
           <div className="pagination">
             <button
               onClick={() => paginate(currentPage - 1)}
