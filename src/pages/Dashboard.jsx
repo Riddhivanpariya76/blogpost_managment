@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../Components/Navbar";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaStar } from "react-icons/fa";
 import { MdDelete, MdEdit } from "react-icons/md";
 import "./Dashboard.css";
 import { useNavigate } from "react-router-dom";
@@ -91,6 +91,10 @@ function Dashboard() {
                     alt={post.title}
                     className="post-card-image"
                   />
+
+                  <button className={`favorite-btn ${favorites.includes(post.id) ? 'active' : '' }`}>
+                        <FaStar size={22} color="#ffffff"/>
+                  </button>
 
                   <div className="post-actions">
                     <button

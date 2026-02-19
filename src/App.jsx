@@ -9,6 +9,7 @@ import Createpost from "./pages/Createpost";
 import AuthGuard from "./auth/Authguard";
 import Analytics from "./pages/Analytics";
 import PostDetails from "./pages/PostDetails";
+import Favorites from "./pages/Favorites";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         </AuthGuard>}/>
         <Route path="/analytics" element={<Analytics/>}/>
         <Route path="/post-details/:id" element={<PostDetails/>}/>
+        <Route path="/favorites" element={<Favorites/>}/>
       </Routes>
 
       <ToastContainer
