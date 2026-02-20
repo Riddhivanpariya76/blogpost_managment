@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../Components/Navbar";
-import { FaPlus, FaStar } from "react-icons/fa";
-import { MdDelete, MdEdit } from "react-icons/md";
+import { FaPlus } from "react-icons/fa";
+import { MdDelete, MdEdit, MdStar } from "react-icons/md";
 import "./Dashboard.css";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Dashboard() {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
+  const [favorites,setFavorites] =useState ([]);
 
   // Fetch posts
   const fetchData = async () => {
@@ -23,6 +25,27 @@ function Dashboard() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const toggleFavorite = (postId) => {
+  let newFavorites;
+  if (favorites.includes(postId)) {
+    newFavorites = favorites.filter(id => id !== postId);
+    toast.info("Removed from favorites");
+  } else {
+    newFavorites = [...favorites, postId];
+    toast.success("Added to favorites!");
+  }
+
+  setFavorites(newFavorites);
+  localStorage.setItem("favorites", JSON.stringify(newFavorites));
+};
+    useEffect (() => {
+      fetchData();
+      const savedFavorites =JSON.parse(localStorage.getItem('favorites') || "[]",
+    
+    );
+    setFavorites(savedFavorites);
+    }, []);
 
   // Delete post
   const deletePost = async (id) => {
@@ -92,15 +115,18 @@ function Dashboard() {
                     className="post-card-image"
                   />
 
-                  <button className={`favorite-btn ${favorites.includes(post.id) ? 'active' : '' }`}>
-                        <FaStar size={22} color="#ffffff"/>
+                  <button
+                  className={`favourite-btn ${favorites.includes(post.id) ? "active": ""}`}
+                  onClick={() => toggleFavorite(post.id)}
+                  >
+                    <MdStar size={22} color="white" />
                   </button>
 
                   <div className="post-actions">
                     <button
                       className="action-btn edit-btn"
                       title="Edit Post"
-                      onClick={() => navigate(`/edit-post/${post.id}`)}
+                        onClick={() => navigate(`/edit-post/${post.id}`)}
                     >
                       <MdEdit size={22} color="white" />
                     </button>
@@ -118,7 +144,7 @@ function Dashboard() {
                 <div className="post-card-content">
                   <div className="post-meta">
                     <span className="post-author">
-                      By {post.author}
+                      By {post.auther}
                     </span>
                     <span className="post-date">
                       {new Date(post.createdAt).toDateString()}
@@ -133,7 +159,7 @@ function Dashboard() {
 
                   <button
                     className="read-more-btn"
-                    onClick={() => navigate(`/post-details/${post.id}`)}
+                    onClick={() => navigate(`/post-detail/${post.id}`)}
                   >
                     Read More
                   </button>
